@@ -7,16 +7,18 @@ const routes = require("./src/routes");
 
 const app = express();
 
+const { PORT, DB } = process.env;
+
 app.use(express.json());
 app.use(cors());
 
-console.log(process.env.DB);
-
-mongoose.connect(process.env.DB, {
+mongoose.connect(DB, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
 app.use(routes);
 
-app.listen(5021);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
